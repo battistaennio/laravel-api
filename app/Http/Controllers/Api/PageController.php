@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 
@@ -32,5 +34,19 @@ class PageController extends Controller
         }
 
         return response()->json(compact('success', 'projects'));
+    }
+
+    public function allTechs()
+    {
+
+        $techs = Technology::all();
+
+        if ($techs) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'techs'));
     }
 }
