@@ -86,4 +86,28 @@ class PageController extends Controller
 
         return response()->json(compact('success', 'project'));
     }
+
+    public function projectsByType($type)
+    {
+        $prjct_by_type = Type::where('name', $type)->with('projects')->first();
+
+        if ($prjct_by_type) {
+
+            $success = true;
+
+            foreach ($prjct_by_type->projects as $prj) {
+
+                if ($prj->img_path) {
+                    $prj->img_path = asset('storage/' . $prj->img_path);
+                } else {
+                    $prj->img_path = '/img/no-img.png';
+                    $prj->img_name = 'no image available';
+                }
+            }
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'prjct_by_type'));
+    }
 }
