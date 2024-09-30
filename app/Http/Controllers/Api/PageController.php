@@ -104,8 +104,12 @@ class PageController extends Controller
                     $prj->img_name = 'no image available';
                 }
             }
+
+            $prjct_by_type = $prjct_by_type->projects;
         } else {
             $success = false;
+
+            $prjct_by_type = null;
         }
 
         return response()->json(compact('success', 'prjct_by_type'));
@@ -128,9 +132,13 @@ class PageController extends Controller
                     $prj->img_name = 'no image available';
                 }
             }
+
+            $prjct_by_tech = $prjct_by_tech->projects;
         } else {
 
             $success = false;
+
+            $prjct_by_tech = null;
         }
 
         return response()->json(compact('success', 'prjct_by_tech'));
