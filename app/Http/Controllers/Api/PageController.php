@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 // - elenco di tutte le tecnologie
 // - elenco di tutti i tipi
 // BONUS
-// - dettaglio del singolo post con tipo e tecnologie associate dato lo slug. Aggiungere la gestione del progetto mancante e dell’immagine mancante
+// - dettaglio del singolo post con tipo e tecnologie associate dato lo slug.
+//      Aggiungere la gestione del progetto mancante e dell’immagine mancante
 // - elenco dei progetti in base al tipo
 // - elenco dei progetti in base alle tecnologie
 
@@ -62,5 +63,27 @@ class PageController extends Controller
         }
 
         return response()->json(compact('success', 'types'));
+    }
+
+    public function projectBySlug($slug)
+    {
+
+        $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
+
+        if ($project) {
+
+            $success = true;
+
+            if ($project->img_path) {
+                $project->img_path = asset('storage/' . $project->img_path);
+            } else {
+                $project->img_path = '/img/no-img.png';
+                $project->img_name = 'no image available';
+            }
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'project'));
     }
 }
