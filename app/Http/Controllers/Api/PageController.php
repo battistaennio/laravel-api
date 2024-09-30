@@ -110,4 +110,29 @@ class PageController extends Controller
 
         return response()->json(compact('success', 'prjct_by_type'));
     }
+
+    // - elenco dei progetti in base alle tecnologie
+    public function projectsByTech($tech)
+    {
+        $prjct_by_tech = Technology::where('name', $tech)->with('projects')->first();
+
+        if ($prjct_by_tech) {
+
+            $success = true;
+
+            foreach ($prjct_by_tech->projects as $prj) {
+                if ($prj->img_path) {
+                    $prj->img_path = asset('storage/' . $prj->img_path);
+                } else {
+                    $prj->img_path = '/img/no-img.png';
+                    $prj->img_name = 'no image available';
+                }
+            }
+        } else {
+
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'prjct_by_tech'));
+    }
 }
