@@ -49,4 +49,18 @@ class PageController extends Controller
 
         return response()->json(compact('success', 'techs'));
     }
+
+    public function allTypes()
+    {
+
+        $types = Type::all();
+
+        if ($types) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'types'));
+    }
 }

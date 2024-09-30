@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'allProjects']);
 Route::get('/tutte-le-tecnologie', [PageController::class, 'allTechs']);
+Route::get('/tutti-i-tipi', [PageController::class, 'allTypes']);
