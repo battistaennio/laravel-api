@@ -26,12 +26,13 @@ class PageController extends Controller
     public function allProjects()
     {
 
-        $projects = Project::orderBy('id', 'desc')->with('type', 'technologies')->get();
+        $projects = Project::orderBy('id', 'desc')->with('type', 'technologies')->paginate(10);
 
         if ($projects) {
             $success = true;
         } else {
             $success = false;
+            $projects = null;
         }
 
         return response()->json(compact('success', 'projects'));
@@ -46,6 +47,7 @@ class PageController extends Controller
             $success = true;
         } else {
             $success = false;
+            $tech = null;
         }
 
         return response()->json(compact('success', 'techs'));
@@ -60,6 +62,7 @@ class PageController extends Controller
             $success = true;
         } else {
             $success = false;
+            $types = null;
         }
 
         return response()->json(compact('success', 'types'));
@@ -82,6 +85,7 @@ class PageController extends Controller
             }
         } else {
             $success = false;
+            $project = null;
         }
 
         return response()->json(compact('success', 'project'));
