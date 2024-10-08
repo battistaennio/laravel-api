@@ -91,9 +91,9 @@ class PageController extends Controller
         return response()->json(compact('success', 'project'));
     }
 
-    public function projectsByType($type)
+    public function projectsByType($slug)
     {
-        $prjct_by_type = Type::where('name', $type)->with('projects')->first();
+        $prjct_by_type = Type::where('slug', $slug)->with('projects')->first();
 
         if ($prjct_by_type) {
 
@@ -120,9 +120,9 @@ class PageController extends Controller
     }
 
     // - elenco dei progetti in base alle tecnologie
-    public function projectsByTech($tech)
+    public function projectsByTech($slug)
     {
-        $prjct_by_tech = Technology::where('name', $tech)->with('projects')->first();
+        $prjct_by_tech = Technology::where('slug', $slug)->with('projects')->first();
 
         if ($prjct_by_tech) {
 
