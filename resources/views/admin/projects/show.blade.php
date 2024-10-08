@@ -83,6 +83,10 @@
             <h3>Immagine:</h3>
             <img src="{{ asset('storage/' . $project->img_path) }}" alt="{{ $project->img_name }}"
                 onerror="this.src='/img/no-img.png'">
+
+            <img src="/storage/uploads/9DWv4gP3A1jcbwwrwpl5OBjNpapCIN5F6WbsltBs.jpg" alt="{{ $project->img_name }}">
+
+            @dump(asset('storage/' . $project->img_path))
         </div>
     </div>
 
