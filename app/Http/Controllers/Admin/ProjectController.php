@@ -39,6 +39,7 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
+
         $data = $request->all();
 
         $data['slug'] = Helper::generateSlug($data['name'], Project::class);
