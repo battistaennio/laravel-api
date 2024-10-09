@@ -119,6 +119,31 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function trash()
+    {
+        $projects = Project::onlyTrashed()->orderBy('id', 'desc')->paginate(10);
+
+        return view('admin.projects.trash', compact('projects'));
+    }
+
+    public function restore($id)
+    {
+        $project = Project::withTrashed()->find($id);
+        $project->restore();
+        return redirect()->route('admin.projects.index')->with('restored', 'Progetto ' . $project->name . ' ripristinato correttamente');
+    }
+
+    public function delete($id)
+    {
+        $project = Project::withTrashed()->find($id);
+        if ($project->img_path) {
+            Storage::delete($project->img_path);
+        }
+        $project->forceDelete();
+
+        return redirect()->route('admin.projects.index')->with('delete_confirm', 'Progetto "' . $project->name . '" eliminato correttamente');
+    }
+
     public function destroy(Project $project)
     {
         if ($project->path_image) {
