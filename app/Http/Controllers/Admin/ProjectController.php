@@ -146,9 +146,9 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        if ($project->path_image) {
-            Storage::delete($project->path_image);
-        }
+        // if ($project->path_image) {
+        //     Storage::delete($project->path_image);
+        // }
 
         $project->delete();
 
